@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBCard, MDBCardBody, MDBDataTable, MDBIcon } from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBDataTable } from 'mdbreact';
 
 
   
@@ -17,13 +17,12 @@ class TemplateData extends Component {
   }
   componentDidMount() {     
     let rowsItem = [];
-    let indexCount = 0;
     for(const [i, templateInfo] of this.props.data.entries()){
       let templateDetail = {
         userName: templateInfo.userName,
         categoryName: templateInfo.categoryName,
         caption: templateInfo.caption,
-        status: (templateInfo.status && templateInfo.status != undefined) ? "Active": "InActive",
+        status: (templateInfo.status && templateInfo.status !== undefined) ? "Active": "InActive",
 
       }   
       console.log(JSON.stringify(templateDetail));  
@@ -62,14 +61,13 @@ class TemplateData extends Component {
       ],
       rows: this.state.dataTableItem
     };
-    let rowsItem = [];
-    let indexCount = 0;
+    let rowsItem = [];    
     for(const [i, templateInfo] of this.props.data.entries()){
       let templateDetail = {
         userName: templateInfo.userName,
         categoryName: templateInfo.categoryName,
         caption: templateInfo.caption,
-        status: (templateInfo.status && templateInfo.status != undefined) ? "Active": "InActive",
+        status: (templateInfo.status && templateInfo.status !== undefined) ? "Active": "InActive",
 
       }   
       console.log(JSON.stringify(templateDetail));  

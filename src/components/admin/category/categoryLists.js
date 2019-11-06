@@ -43,7 +43,7 @@ class categoryLists extends Component {
         .then( res => {
           console.log(res);
            
-          if ( undefined == res.data.data || !res.data.status ) {
+          if ( undefined === res.data.data || !res.data.status ) {
             this.setState( {  loading: false } );
             toast.error(res.data.message);    
             return;
@@ -100,7 +100,7 @@ class categoryLists extends Component {
           } )
           .catch( err => {       
               
-            if(err.response !== undefined && err.response.status == 401) {
+            if(err.response !== undefined && err.response.status === 401) {
               localStorage.clear();
               this.props.history.push('/login');
             }
@@ -130,7 +130,7 @@ class categoryLists extends Component {
           } )
           .catch( err => {       
               
-            if(err.response !== undefined && err.response.status == 401) {
+            if(err.response !== undefined && err.response.status === 401) {
               localStorage.clear();
               this.props.history.push('/login');
             }
@@ -224,7 +224,7 @@ class categoryLists extends Component {
         } )
         .catch( err => {       
             
-          if(err.response !== undefined && err.response.status == 401) {
+          if(err.response !== undefined && err.response.status === 401) {
             localStorage.clear();
             this.props.history.push('/login');
           }
@@ -241,10 +241,8 @@ class categoryLists extends Component {
       
       let loaderElement ='';
       
-      if(!loading)
-        loaderElement = '';
-      else
-          loaderElement = <Loader />
+      if(loading)
+        loaderElement = <Loader />
 
       return (
         <React.Fragment>

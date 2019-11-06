@@ -22,7 +22,6 @@
   .sidebar-fixed .logo-wrapper img{
     width: 100%;
     padding: 1rem;
-    visibility: hidden;
   }
 
 .dashboard-content{ margin-left: 270px; margin-top: 1em; margin-bottom: 5em; }

@@ -1,9 +1,9 @@
 import React from "react";
-import  { Redirect, Link } from 'react-router-dom';
+import  { Redirect} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commenService from '../core/services/commonService';
-import Loader from '../components/loader';
+//import Loader from '../components/loader';
 import {
   MDBView,
   MDBContainer,

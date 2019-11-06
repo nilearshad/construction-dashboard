@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../loader';
@@ -39,7 +39,7 @@ class Template extends Component {
          
         } )
         .catch( err => {         
-          if(err.response != undefined && err.response.status == 401) {
+          if(err.response !== undefined && err.response.status === 401) {
             localStorage.clear();
             this.props.history.push('/login');
           }
@@ -68,6 +68,7 @@ class Template extends Component {
                   <h2 className="section-heading mb-4">Template List</h2>
                 </MDBCol>                
                 {loaderElement}
+                <ToastContainer />
                 <MDBCol md="12">
                     {tableConatiner}
                 </MDBCol>

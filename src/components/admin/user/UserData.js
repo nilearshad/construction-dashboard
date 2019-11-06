@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { MDBCard, MDBCardBody, MDBDataTable, MDBIcon } from 'mdbreact';
-
+import { MDBCard, MDBCardBody, MDBDataTable, MDBIcon} from 'mdbreact';
+import  { Link } from 'react-router-dom';
 
   
   
@@ -16,15 +16,14 @@ class UserData extends Component {
     
   }
   componentDidMount() {     
-    let rowsItem = [];
-    let indexCount = 0;
+    let rowsItem = [];    
     for(const [i, userInfo] of this.props.data.entries()){
       let userDetail = {
         name: userInfo.firstName,
         email: userInfo.email,
         phoneNumber: userInfo.phoneNumber,
         address: userInfo.address,
-        status: (userInfo.status && userInfo.status != undefined) ? "Active": "InActive",
+        status: (userInfo.status && userInfo.status !== undefined) ? "Active": "InActive",
 
       }      
       rowsItem.push(userDetail);
@@ -67,19 +66,20 @@ class UserData extends Component {
       rows: this.state.dataTableItem
     };
     let rowsItem = [];
-    let indexCount = 0;
+    
     for(const [i, userInfo] of this.props.data.entries()){
+      debugger;
       let userDetail = {
         name: userInfo.firstName,
         email: userInfo.email,
-        phoneNumber: userInfo.phoneNumber,
-        address: userInfo.address || "",
-        status: (userInfo.status && userInfo.status != undefined) ? "Active": "InActive",
-        action: <p><a disabled={this.state.buttonProcessing} ><MDBIcon icon="edit"></MDBIcon> </a>
+        phoneNumber: userInfo.phoneNumber || " ",
+        address: userInfo.address || " ",
+        status: (userInfo.status && userInfo.status !== undefined) ? "Active": "InActive",
+        action: <p><Link to={`/admin/user/${userInfo.profileId}`}><MDBIcon icon="eye"></MDBIcon> </Link>
           <a disabled={this.state.buttonProcessing} ><MDBIcon icon="trash"></MDBIcon></a></p>,
 
       }  
-      debugger;    
+          
       rowsItem.push(userDetail);
     } 
     data.rows = rowsItem;

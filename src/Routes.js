@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import adminDashboard from "./components/admin/dashboard/dashboard";
 import categoryLists from "./components/admin/category/categoryLists";
 import userComponent from "./components/admin/user/user";
+import userProfileInfo from "./components/admin/user/userProfileInfo";
 import templateComponent from "./components/admin/template/Template";
 import commonService from './core/services/commonService';
 import TopNavigation from './components/header/topNavigation';
@@ -24,12 +25,14 @@ class Routes extends React.Component{
         return (
             <Switch>
               <Route exact path="/login" component={LoginPage} />
-              <Route exact path={["/admin/dashboard", "/admin/category","/admin/template","/admin/user"]}>
+              <Route exact path={["/","/admin/dashboard", "/admin/category","/admin/template","/admin/user","/admin/user/:profileId"]}>
                 <AdminDashboardLayout>
                   <PrivateRoute exact path="/admin/dashboard" component={adminDashboard} />                 
                   <PrivateRoute exact path="/admin/category" component={categoryLists} />
                   <PrivateRoute exact path="/admin/template" component={templateComponent} />
                   <PrivateRoute exact path="/admin/user" component={userComponent} />
+                  <PrivateRoute exact path="/admin/user/:profileId" component={userProfileInfo} />
+                  <PrivateRoute exact path="/" component={adminDashboard} />
                 </AdminDashboardLayout>
               </Route>  
                 
