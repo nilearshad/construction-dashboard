@@ -1,76 +1,19 @@
-import React from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import adminDashboard from "./components/admin/dashboard/dashboard";
-import categoryLists from "./components/admin/category/categoryLists";
-import userComponent from "./components/admin/user/user";
-import userProfileInfo from "./components/admin/user/userProfileInfo";
-import adminChangePassword from "./components/admin/change-password/change-password";
-import templateComponent from "./components/admin/template/Template";
-import commonService from './core/services/commonService';
-import TopNavigation from './components/header/topNavigation';
-class Routes extends React.Component{
+import React from 'react';
+const Dashboard = React.lazy(() => import('./views/Dashboard'));
+const Users = React.lazy(() => import('./views/Users/Users'));
+const User = React.lazy(() => import('./views/Users/User'));
+const Category = React.lazy(() => import('./views/Category/Category'));
+const Template = React.lazy(() => import('./views/Template/Template'));
+const ChangePassword = React.lazy(() => import('./views/ChangePassword/ChangePassword'));
 
-    render() {
-        
-        const AdminDashboardLayout = ({ children }) => (
-          <div>
-            <div className="flyout">
-                <TopNavigation />
-              <main>
-                  {children} 
-              </main> 
-            </div>          
-          </div>
-        );
-        return (
-            <Switch>
-              <Route exact path="/login" component={LoginPage} />
-              <Route exact path={["/","/admin/dashboard", "/admin/category","/admin/template",
-              "/admin/user","/admin/user/:profileId", "/admin/change-password"]}>
-                <AdminDashboardLayout>
-                  <PrivateRoute exact path="/admin/dashboard" component={adminDashboard} />                 
-                  <PrivateRoute exact path="/admin/category" component={categoryLists} />
-                  <PrivateRoute exact path="/admin/template" component={templateComponent} />
-                  <PrivateRoute exact path="/admin/user" component={userComponent} />
-                  <PrivateRoute exact path="/admin/user/:profileId" component={userProfileInfo} />
-                  <PrivateRoute exact path="/admin/change-password" component={adminChangePassword} />
-                  <PrivateRoute exact path="/" component={adminDashboard} />
+const routes = [
+  { path: '/admin/', exact: true, name: 'Home' },
+  { path: '/admin/dashboard', name: 'Dashboard', component: Dashboard },  
+  { path: '/admin/users', exact: true,  name: 'Users', component: Users },  
+  { path: '/admin/users/:profileId', exact: true, name: 'User Details', component: User },
+  { path: '/admin/category', exact: true,  name: 'Category', component: Category },
+  { path: '/admin/template', exact: true,  name: 'User Template', component: Template },
+  { path: '/admin/change-password', exact: true,  name: 'Change Password', component: ChangePassword },
+];
 
-                </AdminDashboardLayout>
-              </Route>  
-                
-                <Route
-                    render={function () {
-                        return <h1>Not Found</h1>;
-                    }}
-                />
-            </Switch>
-        )
-    };
-}
-const PrivateRoute = ({ component, ...rest }) => {
- 
-  return (
-    <Route {...rest} exact
-      render = {(props) => (
-
-        commonService.getAuth() ? (
-          
-          <div>            
-            {React.createElement(component, props)}
-          </div>
-        ) :
-        (
-          <Redirect
-            to={{
-              pathname: '/login',
-              state: { from: props.location }
-            }}
-          />
-        )
-      )}
-    />
-  )
-}
-export default Routes;
+export default routes;

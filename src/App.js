@@ -1,23 +1,56 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+// import { renderRoutes } from 'react-router-config';
+import './App.scss';
+/*Common Service*/
+import commonService from './core/services/commonService';
+const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
-import { BrowserRouter as Router} from "react-router-dom";
+// Containers
+const DefaultLayout = React.lazy(() => import('./containers/DefaultLayout'));
 
-import Routes from "./Routes";
+// Pages
+const Login = React.lazy(() => import('./views/Pages/Login'));
+const Register = React.lazy(() => import('./views/Pages/Register'));
+const Page404 = React.lazy(() => import('./views/Pages/Page404'));
+const Page500 = React.lazy(() => import('./views/Pages/Page500'));
 
-class App extends Component{
-  state = {
-    collapseID: ""
-  };
-  
+class App extends Component {
 
   render() {
-    
     return (
       <Router>
-          <Routes />
+          <React.Suspense fallback={loading()}>
+            <Switch>
+              <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
+              <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>} />
+              <Route exact path="/404" name="Page 404" render={props => <Page404 {...props}/>} />
+              <Route exact path="/500" name="Page 500" render={props => <Page500 {...props}/>} />
+              <PrivateRoute path="/" name="Home" component={DefaultLayout}/>} />
+            </Switch>
+          </React.Suspense>
       </Router>
     );
   }
 }
-
+const PrivateRoute = ({ component, ...rest }) => {
+  return (
+    <Route {...rest} render={routeProps => {
+      return commonService.getAuth() ? (
+        renderMergedProps(component, routeProps, rest)
+      ) : (
+        <Redirect to={{
+          pathname: '/login',
+          state: { from: routeProps.location }
+        }}/>
+      );
+    }}/>
+  );
+};
+const renderMergedProps = (component, ...rest) => {
+  const finalProps = Object.assign({}, ...rest);
+  return (
+    React.createElement(component, finalProps)
+  );
+}
 export default App;
