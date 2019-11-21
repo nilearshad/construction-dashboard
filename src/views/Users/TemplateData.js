@@ -1,21 +1,6 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
-function TemplateRow(props) {
-  const templateInfo = props.templateInfo;
+import MUIDataTable from "mui-datatables";
 
-  const getStatus = (status) => {
-    return status === true ? 'Active' : 'Inactive'
-  }  
-  return (
-    <tr>      
-      <td>{templateInfo.userName}</td>
-      <td>{templateInfo.categoryName}</td>
-      <td>{templateInfo.fileName}</td>
-      <td>{getStatus(templateInfo.status || true)}</td>
-      <td>{templateInfo.action}</td>
-    </tr>
-  )
-} 
 class TemplateData extends Component {
   
   constructor(props){
@@ -41,7 +26,7 @@ class TemplateData extends Component {
         userName: templateInfo.userName,
         categoryName: templateInfo.categoryName,
         fileName: templateInfo.fileName || " ",        
-        status: templateInfo.status || true,
+        status: templateInfo.status ? "Active" : "Inactive",
         action: <p><a href={`${templateInfo.pdfUrl}`} target="_blank" rel="noopener noreferrer"><i className="fa fa-download"></i> </a>
           <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
           {if (window.confirm('Are you sure you wish to delete this item?')) this.deleteTemplateItem(i)}} ><i className="fa fa-trash"></i></a></p>,
@@ -49,24 +34,47 @@ class TemplateData extends Component {
       }  
       rowsItem.push(templateDetail);
     } 
+    const columns = [
+      {
+        label: 'Category Name',
+        name: 'categoryName',
+      },
+      {
+        label: 'Filename',
+        name: 'fileName',
+      },
+      {
+        label: 'Status',
+        name: 'status',
+      },
+      {
+        label: 'Action',
+        name: 'action',
+      },
+    ];
+    const options = {
+      search: true,
+      filter: false,
+      searchOpen: false,
+      print: false,
+      download: false,
+      selectableRows: false,
+      textLabels: {
+        body: {
+          noMatch: this.props.dataTableLoadingStatus ? "Proccessing........" : "Sorry, no matching records found",
+          toolTip: "Sort",
+          columnHeaderTooltip: column => `Sort for ${column.label}`
+        },
+      }
 
+    };
     return (
-      <Table responsive hover>
-        <thead>
-          <tr>            
-            <th scope="col">User Name</th>
-            <th scope="col">Category Name</th>
-            <th scope="col">Filename</th>           
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rowsItem.map((templateInfo, index) =>
-            <TemplateRow key={index} templateInfo={templateInfo}/>
-          )}
-        </tbody>
-      </Table>
+      <MUIDataTable
+        title={"User File"}
+        data={rowsItem}
+        columns={columns}
+        options={options}
+      />
     );
   }
 }

@@ -13,12 +13,7 @@ export default {
       name: 'Category',
       url: '/admin/category',
       icon: 'icon-speedometer',     
-    },
-    {
-      name: 'User Template',
-      url: '/admin/template',
-      icon: 'icon-puzzle',     
-    },
+    },    
     {
       name: 'Manage User',
       url: '/admin/users',

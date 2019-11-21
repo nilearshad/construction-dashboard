@@ -56,7 +56,7 @@ class Login extends Component {
             loading: false,              
             loggedIn: true
           } )
-          //toast.success(res.data.message);
+          toast.success(res.data.message);
           this.props.history.push('/admin/dashboard');
           
         } )

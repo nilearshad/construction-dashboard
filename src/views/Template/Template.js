@@ -14,7 +14,7 @@ class Template extends Component {
       loading: true,
       templateList: []
     } 
-    
+    this.handleDeleteTemplate = this.handleDeleteTemplate.bind(this);
   }
   componentDidMount() { 
     this.templateList();
@@ -37,7 +37,8 @@ class Template extends Component {
           this.setState({loading:false, templateList: res.data.data});     
          
         } )
-        .catch( err => {         
+        .catch( err => {  
+               
           if(err.response !== undefined && err.response.status === 401) {
             localStorage.clear();
             this.props.history.push('/login');
@@ -50,6 +51,35 @@ class Template extends Component {
     } )
   }
 
+  handleDeleteTemplate(rowIndex){
+   
+    const templateItem = this.state.templateList[rowIndex];
+   
+    this.setState( { loading: true}, () => {
+      commonService.deleteAPIWithAccessToken( `template/`+templateItem.templateImageId)
+        .then( res => {
+          this.setState({loading: false});
+          if ( undefined === res.data || !res.data.status ) {            
+             toast.error(res.data.message);      
+            return;
+          }         
+          
+          toast.success(res.data.message);
+          this.templateList();
+        } )
+        .catch( err => {       
+            
+          if(err.response !== undefined && err.response.status === 401) {
+            localStorage.clear();
+            this.props.history.push('/login');
+          }
+          else{
+            this.setState( { loading: false } );
+            toast.error(err.message);
+          }
+      } )
+    })
+  }
   render() {
 
     const { templateList, loading } = this.state; 
@@ -68,7 +98,7 @@ class Template extends Component {
               <CardBody>
                 <ToastContainer />
                 {loaderElement}
-                <TemplateData data={templateList} />
+                <TemplateData data={templateList} deleteTemplateAction={this.handleDeleteTemplate} />
                   
               </CardBody>
             </Card>

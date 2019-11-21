@@ -12,7 +12,7 @@ class Users extends Component {
     super(props);
     this.state = {
       loading: true,
-      userList: []
+      userList: [],
     } 
     
   }
@@ -69,7 +69,7 @@ class Users extends Component {
               <CardBody>
                 <ToastContainer />
                 {loaderElement}
-                <UsersData data={userList} />
+                <UsersData data={userList} dataTableLoadingStatus = {this.state.loading} />
                   
               </CardBody>
             </Card>

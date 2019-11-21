@@ -46,7 +46,7 @@ class CategoryData extends Component {
         action: <p><a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
           this.editCategoryItem(i)}><i className="fa fa-pencil"></i> </a>
           <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteCategoryItem(i)}><i className="fa fa-trash"></i></a></p>,       
+          { if (window.confirm('Are you sure you wish to delete this category?')) this.deleteCategoryItem(i)}}><i className="fa fa-trash"></i></a></p>,       
       }      
       rowsItem.push(catInfo);
     }

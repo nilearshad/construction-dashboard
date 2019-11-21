@@ -1,22 +1,7 @@
 import React, { Component } from 'react';
 import  { Link } from 'react-router-dom';
-import { Table } from 'reactstrap';
-function UsersRow(props) {
-  const Users = props.Users;
+import MUIDataTable from "mui-datatables";
 
-  const getStatus = (status) => {
-    return status === true ? 'Active' : 'Inactive'
-  }  
-  return (
-    <tr>      
-      <td>{Users.firstName}</td>
-      <td>{Users.email}</td>
-      <td>{Users.phoneNumber}</td>
-      <td>{getStatus(Users.status)}</td>
-      <td>{Users.action}</td>
-    </tr>
-  )
-} 
 class UsersData extends Component {
   
   constructor(props){
@@ -31,6 +16,9 @@ class UsersData extends Component {
   componentDidMount() {   
   }
   
+  deleteUserInfo(index){
+
+  }
   render() {
     
     let rowsItem = [];
@@ -41,33 +29,60 @@ class UsersData extends Component {
         email: userInfo.email,
         phoneNumber: userInfo.phoneNumber || " ",
         address: userInfo.address || " ",
-        status: userInfo.status || true,
+        status: userInfo.status ? "Active" : "Inactive",
         action: <p><Link to={`/admin/users/${userInfo.profileId}`}><i className="fa fa-eye"></i> </Link>
-          <a href="#!" disabled={this.state.buttonProcessing} ><i className="fa fa-trash"></i></a></p>,
+          <a href="#!" disabled={this.state.buttonProcessing} onClick={() => {
+          if (window.confirm('Are you sure you wish to delete this user?')) this.deleteUserInfo(i) }} ><i className="fa fa-trash"></i></a></p>,
 
       }  
       rowsItem.push(userDetail);
     }       
-    
-    
+    const columns = [
+      {
+        label: 'Name',
+        name: 'firstName',
+      },
+      {
+        label: 'Email',
+        name: 'email',
+      },
+      {
+        label: 'Phone',
+        name: 'phoneNumber',
+      },
+      {
+        label: 'Status',
+        name: 'status',
+      },
+      {
+        label: 'Action',
+        name: 'action',
+      },
+    ];
+    const options = {
+      search: true,
+      filter: false,
+      searchOpen: false,
+      print: false,
+      download: false,
+      selectableRows: false,
+      textLabels: {
+        body: {
+          noMatch: this.props.dataTableLoadingStatus ? "Proccessing........" : "Sorry, no matching records found",
+          toolTip: "Sort",
+          columnHeaderTooltip: column => `Sort for ${column.label}`
+        },
+      }
+
+    };
     
     return (
-      <Table responsive hover>
-        <thead>
-          <tr>            
-            <th scope="col">Name</th> 
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>          
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rowsItem.map((Users, index) =>
-            <UsersRow key={index} Users={Users}/>
-          )}
-        </tbody>
-      </Table>
+      <MUIDataTable
+        title={"User List"}
+        data={rowsItem}
+        columns={columns}
+        options={options}
+      />
     );
   }
 }
