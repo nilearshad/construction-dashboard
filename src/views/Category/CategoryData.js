@@ -51,7 +51,7 @@ class CategoryData extends Component {
       rowsItem.push(catInfo);
     }
     
-    debugger;
+   
     return (
       <Table responsive hover>
         <thead>
