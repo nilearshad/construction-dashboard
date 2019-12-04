@@ -1,19 +1,6 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
-function CategoryRow(props) {
-  const category = props.category;
+import MUIDataTable from "mui-datatables";
 
-  const getStatus = (status) => {
-    return status === true ? 'Active' : 'Inactive'
-  }  
-  return (
-    <tr>      
-      <td>{category.name}</td>
-      <td>{getStatus(category.status)}</td>
-      <td>{category.action}</td>
-    </tr>
-  )
-} 
 class CategoryData extends Component {
   
   constructor(props){
@@ -42,31 +29,52 @@ class CategoryData extends Component {
     for(const [i, cat] of this.props.data.entries()){
       let catInfo = {
         name: cat.categoryName,
-        status: cat.status || true ,       
-        action: <p><a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
+        status: cat.status ? "Active" : "Inactive" ,       
+        action: <p><a href="#!" className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
           this.editCategoryItem(i)}><i className="fa fa-pencil"></i> </a>
-          <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
+          <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
           { if (window.confirm('Are you sure you wish to delete this category?')) this.deleteCategoryItem(i)}}><i className="fa fa-trash"></i></a></p>,       
       }      
       rowsItem.push(catInfo);
     }
     
-   
+    const columns = [
+      {
+        label: 'Category',
+        name: 'name',
+      },
+      {
+        label: 'Status',
+        name: 'status',
+      },
+      {
+        label: 'Action',
+        name: 'action',
+      },
+    ];
+    const options = {
+      search: true,
+      filter: false,
+      searchOpen: false,
+      print: false,
+      download: false,
+      selectableRows: false,
+      textLabels: {
+        body: {
+          noMatch: this.props.dataTableLoadingStatus ? "Proccessing........" : "Sorry, no matching records found",
+          toolTip: "Sort",
+          columnHeaderTooltip: column => `Sort for ${column.label}`
+        },
+      }
+
+    };
     return (
-      <Table responsive hover>
-        <thead>
-          <tr>            
-            <th scope="col">Name</th>            
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rowsItem.map((category, index) =>
-            <CategoryRow key={index} category={category}/>
-          )}
-        </tbody>
-      </Table>
+      <MUIDataTable
+        title={"Category List"}
+        data={rowsItem}
+        columns={columns}
+        options={options}
+      />
     );
   }
 }

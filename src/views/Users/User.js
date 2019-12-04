@@ -17,6 +17,7 @@ class User extends Component {
       profileId: "",      
       templateLoading: true,
     };
+    this.handleDeleteTemplate = this.handleDeleteTemplate.bind(this);
   }
   componentDidMount() {
   const { match: { params } } = this.props;
@@ -91,7 +92,7 @@ class User extends Component {
           }         
           
           toast.success(res.data.message);
-          this.templateList();
+          this.templateList(this.state.profileId);
         } )
         .catch( err => {       
             

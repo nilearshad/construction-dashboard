@@ -1,5 +1,5 @@
 {
-  "name": "Construction-dashboard",
+  "name": "construction-dashboard",
   "version": "2.6.0",
   "description": "Construction",
   "author": "Nile",
@@ -38,10 +38,11 @@
     "react-test-renderer": "^16.11.0",
     "react-toastify": "^5.4.1",
     "reactstrap": "^8.1.1",
-    "simple-line-icons": "^2.4.1"
+    "simple-line-icons": "^2.4.1",
+    "react-scripts": "^3.2.0"
   },
   "devDependencies": {
-    "react-scripts": "^3.2.0"
+    
   },
   "scripts": {
     "start": "react-scripts start",

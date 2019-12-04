@@ -14,7 +14,7 @@ class Users extends Component {
       loading: true,
       userList: [],
     } 
-    
+    this.handleDeleteUserProfile = this.handleDeleteUserProfile.bind(this);
   }
   componentDidMount() { 
     this.userList();
@@ -51,6 +51,35 @@ class Users extends Component {
     } )
   }
 
+  /* Delete User Profile*/
+  handleDeleteUserProfile(rowIndex) {
+    const profileInfo = this.state.userList[rowIndex];
+   
+    this.setState( { loading: true}, () => {
+      commonService.deleteAPIWithAccessToken( `profile/`+profileInfo.profileId)
+        .then( res => {
+          this.setState({loading: false});
+          if ( undefined === res.data || !res.data.status ) {            
+             toast.error(res.data.message);      
+            return;
+          }         
+          
+          toast.success(res.data.message);
+          this.userList();
+        } )
+        .catch( err => {       
+            
+          if(err.response !== undefined && err.response.status === 401) {
+            localStorage.clear();
+            this.props.history.push('/login');
+          }
+          else{
+            this.setState( { loading: false } );
+            toast.error(err.message);
+          }
+      } )
+    })
+  }
   render() {
 
     const { userList, loading } = this.state;     
@@ -69,7 +98,7 @@ class Users extends Component {
               <CardBody>
                 <ToastContainer />
                 {loaderElement}
-                <UsersData data={userList} dataTableLoadingStatus = {this.state.loading} />
+                <UsersData data={userList} dataTableLoadingStatus = {this.state.loading} deleteUserProfile = {this.handleDeleteUserProfile} />
                   
               </CardBody>
             </Card>
