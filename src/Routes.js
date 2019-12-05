@@ -1,10 +1,10 @@
 import React from 'react';
-const Dashboard = React.lazy(() => import('./views/Dashboard'));
-const Users = React.lazy(() => import('./views/Users/Users'));
-const User = React.lazy(() => import('./views/Users/User'));
-const Category = React.lazy(() => import('./views/Category/Category'));
-const Template = React.lazy(() => import('./views/Template/Template'));
-const ChangePassword = React.lazy(() => import('./views/ChangePassword/ChangePassword'));
+import Dashboard  from './views/Dashboard';
+import Users  from './views/Users/Users';
+import User  from './views/Users/User';
+import Category  from './views/Category/Category';
+import Template  from './views/Template/Template';
+import ChangePassword  from './views/ChangePassword/ChangePassword';
 
 const routes = [
   { path: '/admin/', exact: true, name: 'Home' },

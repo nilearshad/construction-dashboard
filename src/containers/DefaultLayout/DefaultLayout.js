@@ -11,18 +11,17 @@ import {
   AppSidebarFooter,
   AppSidebarForm,
   AppSidebarHeader,
-  AppSidebarMinimizer,
   AppBreadcrumb2 as AppBreadcrumb,
   AppSidebarNav2 as AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config
 import navigation from '../../_nav';
 // routes config
-import routes from '../../routes';
+import routes from '../../Routes';
 import './DefaultLayout.css';
-const DefaultAside = React.lazy(() => import('./DefaultAside'));
-const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
-const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
+import DefaultAside from './DefaultAside';
+import DefaultFooter from './DefaultFooter';
+import DefaultHeader from './DefaultHeader';
 
 class DefaultLayout extends Component {
 
@@ -47,10 +46,10 @@ class DefaultLayout extends Component {
             <AppSidebarHeader />
             <AppSidebarForm />
             <Suspense>
-            <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+            <AppSidebarNav className="sideMenuButton" navConfig={navigation} {...this.props} router={router}/>
             </Suspense>
             <AppSidebarFooter />
-            <AppSidebarMinimizer />
+            
           </AppSidebar>
           <main className="main">
             <AppBreadcrumb appRoutes={routes} router={router}/>

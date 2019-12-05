@@ -30,9 +30,9 @@ class UsersData extends Component {
         phoneNumber: userInfo.phoneNumber || " ",
         address: userInfo.address || " ",
         status: userInfo.status ? "Active" : "Inactive",
-        action: <p><Link to={`/admin/users/${userInfo.profileId}`} className="btn-edit"><i className="fa fa-eye"></i> </Link>
+        action: <><Link to={`/admin/users/${userInfo.profileId}`} className="btn-edit"><i className="fa fa-eye"></i> </Link>
           <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => {
-          if (window.confirm('Are you sure you wish to delete this user?')) this.deleteUserInfo(i) }} ><i className="fa fa-trash"></i></a></p>,
+          if (window.confirm('Are you sure you wish to delete this user?')) this.deleteUserInfo(i) }} ><i className="fa fa-trash"></i></a></>,
 
       }  
       rowsItem.push(userDetail);

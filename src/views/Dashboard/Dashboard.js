@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../core/services/commonService';
 import Loader from '../Loader/Loader';
-
+import './Dashboard.css';
 class Dashboard extends Component {
   constructor( props ){
     super( props );
@@ -58,33 +58,40 @@ class Dashboard extends Component {
         <Row>
           {loaderElement}
           <ToastContainer />
+          <Col xs="12" sm="12" lg="12">
+            <div className="Main-dashboardHeading"><h2>Dashboard</h2></div>
+          </Col>
           <Col xs="12" sm="6" lg="4">
-            <Card className="text-white bg-info">
-              <CardBody className="pb-0">                
-                <div className="text-value">{dashBoardStats.userCount}</div>
-                <div>Users</div>
+            <Card className="text-white cardDetails">
+              <CardBody className="">
+                <div className="ic-totalUser"> <img src="/assets/img/user-group.png" /> </div>   
+                <div className="cardHeading"><h6>Total Users</h6></div>             
+                <div className="text-value cardSubHeading">{dashBoardStats.userCount}</div>
+                <div className="cardBottomHeading"> <span>8.5%</span> Up from yesterday </div>
               </CardBody>
               
             </Card>
           </Col>
 
           <Col xs="12" sm="6" lg="4">
-            <Card className="text-white bg-primary">
-              <CardBody className="pb-0">
-                
-                <div className="text-value">{dashBoardStats.categoryCount}</div>
-                <div>Category</div>
+            <Card className="text-white cardDetails">
+              <CardBody className="">
+                <div className="ic-totalUser categoryYellow"> <img src="/assets/img/ic-category.png" /> </div>   
+                <div className="cardHeading"><h6>Total Category</h6></div> 
+                <div className="text-value cardSubHeading">{dashBoardStats.categoryCount}</div>
+                <div className="cardBottomHeading"> <span>8.5%</span> Up from yesterday </div>
               </CardBody>
               
             </Card>
           </Col>
 
           <Col xs="12" sm="6" lg="4">
-            <Card className="text-white bg-warning">
-              <CardBody className="pb-0">
-                
-                <div className="text-value">{dashBoardStats.templateCount}</div>
-                <div>User Template</div>
+            <Card className="text-white cardDetails">
+              <CardBody className="">
+                <div className="ic-totalUser templateRed"> <img src="/assets/img/ic-template.png" /> </div>   
+                <div className="cardHeading"><h6>Total Template</h6></div> 
+                <div className="text-value cardSubHeading">{dashBoardStats.templateCount}</div>
+                <div className="cardBottomHeading"> <span>8.5%</span> Up from yesterday </div>
               </CardBody>
               
             </Card>

@@ -41,9 +41,7 @@
     "simple-line-icons": "^2.4.1",
     "react-scripts": "^3.2.0"
   },
-  "devDependencies": {
-    
-  },
+  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -27,9 +27,9 @@ class TemplateData extends Component {
         categoryName: templateInfo.categoryName,
         fileName: templateInfo.fileName || " ",        
         status: templateInfo.status ? "Active" : "Inactive",
-        action: <p><a href={`${templateInfo.pdfUrl}`} target="_blank" rel="noopener noreferrer"><i className="fa fa-download"></i> </a>
+        action: <><a href={`${templateInfo.pdfUrl}`} target="_blank" rel="noopener noreferrer"><i className="fa fa-download"></i> </a>
           <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
-          {if (window.confirm('Are you sure you wish to delete this item?')) this.deleteTemplateItem(i)}} ><i className="fa fa-trash"></i></a></p>,
+          {if (window.confirm('Are you sure you wish to delete this item?')) this.deleteTemplateItem(i)}} ><i className="fa fa-trash"></i></a></>,
 
       }  
       rowsItem.push(templateDetail);

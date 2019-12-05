@@ -1,0 +1,10 @@
+.Main-dashboardHeading h2{margin-bottom: 26px; color: #1a1b1d; font-size: 24px;}
+.cardDetails{border-radius: 14px; background: #fff; position: relative; padding: 20px 0; box-shadow:5px 5px 5px rgb(222, 227, 232);}
+.cardHeading h6{color: #646464; margin-bottom: 16px;}
+.cardSubHeading{color: #1a1b1d; margin-bottom: 16px;}
+.cardBottomHeading{color: #646464;}
+.cardBottomHeading span{color: #02ac91;}
+.ic-totalUser{position: absolute; right: 30px; border-radius: 20px; padding: 14px; background: #e3e3fb;}
+.header-logo img{width: 60px;}
+.ic-totalUser.categoryYellow{background: #fdf2d6;}
+.ic-totalUser.templateRed{background: #ffddd1;}
